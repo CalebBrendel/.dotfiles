@@ -1,2 +1,2 @@
-# .dotfiles
-Caleb'Hyprland Dotfiles
+# Caleb's Hyprland Dotfiles
+:)
