@@ -33,16 +33,16 @@
   },
 
   "battery": {
-    "interval": 15,
-    "states": { "warning": 30, "critical": 15 },
-    "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
-    "format-plugged": "{capacity}% ",
-    "format-full": "{capacity}% ",
-    "format-alt": "{time}",
-    "format-time": "{H}:{m}"
+    "bat": "BAT0",
+    "adapter": "ADP1",
+    "interval": 10,
+    "format": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
+    "states": { "critical": 10, "low": 20, "good": 80 },
+    "format-icons": ["","","","",""]
   },
-"clock": {
+
+  "clock": {
     "interval": 60,
     "format": "{:%a %b %d  %H:%M}",
     "tooltip-format": "{:%Y-%m-%d %H:%M:%S}",

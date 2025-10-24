@@ -10,7 +10,7 @@ window#waybar {
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-#pulseaudio, #network, #battery, #hyprland-window, #clock,
+#pulseaudio, #network, #battery, #window, #clock,
 #custom-notification, #custom-power, #tray, #workspaces {
   padding: 0 8px;
   margin: 0 4px;
@@ -24,4 +24,4 @@ window#waybar {
 #workspaces button:hover  { background: rgba(255,255,255,0.07); }
 
 /* Window title near the clock */
-#hyprland-window { color: #e7e7e7; }
+#window { color: #e7e7e7; }
