@@ -1,0 +1,9 @@
+{
+// BasedOS Waybar
+"layer": "top",
+"height": 28,
+"modules-left": ["hyprland/workspaces"],
+"modules-center": ["clock"],
+"modules-right": ["cpu", "memory", "battery", "network"],
+"clock": { "format": " %a %b %d %H:%M" }
+}
