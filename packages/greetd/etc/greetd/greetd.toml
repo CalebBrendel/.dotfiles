@@ -1,0 +1,8 @@
+[terminal]
+shell = "/bin/bash"
+vt = 1
+
+
+[default_session]
+command = "bash -lc '/usr/local/bin/greetd-banner.sh; tuigreet --time --cmd Hyprland'"
+user = "greeter"
