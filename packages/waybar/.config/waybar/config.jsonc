@@ -1,42 +1,68 @@
 {
-  // Waybar minimal, icon-friendly
   "layer": "top",
   "position": "top",
-  "height": 28,
+  "height": 26,
 
-  "modules-left":   ["hyprland/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right":  ["pulseaudio", "network", "battery", "tray"],
+  "modules-left": [],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": ["pulseaudio", "network", "battery", "hyprland/window", "clock", "custom/notification", "custom/power", "tray"],
 
   "hyprland/workspaces": {
-    "format": "{icon}",
-    "format-icons": { "active": "", "default": "", "urgent": "" }
+    "format": "{name}",
+    "all-outputs": true,
+    "persistent_workspaces": { "*": ["1","2","3","4","5","6","7","8","9","10"] },
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
   },
 
-  "clock": {
-    "interval": 1,
-    "format": " {:%a %b %d  %H:%M}"   // NOTE the {:%...} syntax
-  },
+  "hyprland/window": { "max-length": 80, "separate-outputs": true },
 
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": " {volume}%",
-    "format-icons": { "default": ["","",""] },
-    "on-click": "pavucontrol"
+    "format-muted": "󰝟",
+    "format-icons": ["","",""]
   },
 
   "network": {
-    "format-wifi": "  {essid}",
-    "format-ethernet": "󰈁 {ifname}",
-    "format-disconnected": "󰖪",
-    "tooltip-format": "{ifname} {ipaddr}"
+    "interval": 5,
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "󰤭 Disconnected",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "on-click": "~/.config/waybar/scripts/open_nmtui.sh"
   },
 
   "battery": {
+    "bat": "BAT0",
+    "adapter": "ADP1",
+    "interval": 10,
     "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "states": { "critical": 10, "low": 20, "good": 80 },
     "format-icons": ["","","","",""]
+  },
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%a %b %d  %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}",
+    "on-click": "gnome-calendar"
+  },
+
+  "custom/notification": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -d",
+    "exec": "swaync-client -swb",
+    "return-type": "json"
+  },
+
+  "custom/power": {
+    "format": "",
+    "tooltip": "Lock (LMB) • Suspend (RMB)",
+    "on-click": "swaylock",
+    "on-click-right": "systemctl suspend"
   },
 
   "tray": { "icon-size": 16, "spacing": 8 }
