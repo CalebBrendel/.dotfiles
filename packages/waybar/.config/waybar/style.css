@@ -1,2 +1,14 @@
-* { font-family: JetBrainsMono Nerd Font, monospace; font-size: 12px; }
-window { background: transparent; }
+/* Global font stack with sane fallbacks */
+* {
+  font-family: "JetBrainsMono Nerd Font", "JetBrainsMonoNL Nerd Font",
+               "Symbols Nerd Font", "Font Awesome 6 Free",
+               "Font Awesome 6 Brands", "Material Icons", monospace, sans-serif;
+  font-size: 12px;
+}
+
+window { background: rgba(24, 24, 37, 0.92); color: #cdd6f4; }
+
+#workspaces button { padding: 0 6px; }
+#workspaces button.active { color: #89b4fa; }
+#clock, #battery, #network, #pulseaudio, #tray { padding: 0 10px; }
+

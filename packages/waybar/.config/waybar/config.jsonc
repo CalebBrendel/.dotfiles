@@ -1,9 +1,43 @@
 {
-// BasedOS Waybar
-"layer": "top",
-"height": 28,
-"modules-left": ["hyprland/workspaces"],
-"modules-center": ["clock"],
-"modules-right": ["cpu", "memory", "battery", "network"],
-"clock": { "format": " %a %b %d %H:%M" }
+  // Waybar minimal, icon-friendly
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+
+  "modules-left":   ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right":  ["pulseaudio", "network", "battery", "tray"],
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": { "active": "", "default": "", "urgent": "" }
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": " {:%a %b %d  %H:%M}"   // NOTE the {:%...} syntax
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " {volume}%",
+    "format-icons": { "default": ["","",""] },
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈁 {ifname}",
+    "format-disconnected": "󰖪",
+    "tooltip-format": "{ifname} {ipaddr}"
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["","","","",""]
+  },
+
+  "tray": { "icon-size": 16, "spacing": 8 }
 }
