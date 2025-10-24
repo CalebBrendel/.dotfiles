@@ -1,0 +1,27 @@
+* { font-family: "Inter", "Font Awesome 6 Free", sans-serif; font-size: 10.5pt; }
+
+#battery, #network, #pulseaudio, #clock, #tray, #custom-notification, #custom-power {
+  font-family: "Font Awesome 6 Free Solid","Font Awesome 6 Free","Inter",sans-serif;
+  font-weight: 900;
+}
+
+window#waybar {
+  background: rgba(20,22,24,0.78);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+#pulseaudio, #network, #battery, #window, #clock,
+#custom-notification, #custom-power, #tray, #workspaces {
+  padding: 0 8px;
+  margin: 0 4px;
+}
+
+/* Workspaces 1–10 centered */
+#workspaces button {
+  padding: 0 7px; margin: 0 2px; border-radius: 8px; color: #ddd;
+}
+#workspaces button.active { background: rgba(255,255,255,0.12); color: #fff; }
+#workspaces button:hover  { background: rgba(255,255,255,0.07); }
+
+/* Window title near the clock */
+#window { color: #e7e7e7; }
