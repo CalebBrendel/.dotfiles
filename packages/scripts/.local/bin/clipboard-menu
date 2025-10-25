@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+launcher() {
+  if command -v wofi >/dev/null; then wofi --show dmenu -p "Clipboard"
+  elif command -v rofi >/dev/null; then rofi -dmenu -p "Clipboard"
+  else exit 0; fi
+}
+sel="$(cliphist list | launcher || true)"
+[ -z "${sel:-}" ] && exit 0
+text="${sel#*$'\t'}"
+printf '%s' "$text" | wl-copy

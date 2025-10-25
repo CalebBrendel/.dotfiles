@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+sudo systemctl unmask bluetooth.service
+sudo systemctl enable --now bluetooth.service
+bluetoothctl power on || true
+notify-send "Bluetooth" "Enabled & powered on"

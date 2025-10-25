@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tmp="$(mktemp)"
+dnf_count=0
+# dnf check-update: exit 100 => updates available; 0 => none
+if dnf -q --refresh check-update >"$tmp" 2>/dev/null; then
+  dnf_count=0
+else
+  code=$?
+  if [ "$code" -eq 100 ]; then
+    # Count package lines (ignore headings/blank lines)
+    dnf_count="$(awk 'NF>=2 && $0 !~ /^Obsoleting Packages/ {c++} END{print c+0}' "$tmp")"
+  else
+    dnf_count=0
+  fi
+fi
+rm -f "$tmp"
+
+# Flatpak updates count
+flatpak_count="$(flatpak remote-ls --updates --columns=application 2>/dev/null | sed '/^$/d' | wc -l || echo 0)"
+
+total=$(( dnf_count + flatpak_count ))
+
+if [ "$total" -gt 0 ]; then
+  # nf-md-package-up glyph
+  printf '{"text":"󰏗 %d","tooltip":"DNF: %d • Flatpak: %d","class":"updates"}\n' "$total" "$dnf_count" "$flatpak_count"
+else
+  printf '{"text":""}\n'
+fi

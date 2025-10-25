@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ctrl="$(bluetoothctl list | sed -n 's/^Controller \([^ ]\+\).*/\1/p' | head -n1 || true)"
+[ -z "${ctrl:-}" ] && { echo '{"text":""}'; exit 0; }
+info="$(bluetoothctl show "$ctrl" 2>/dev/null || true)"
+echo "$info" | grep -q "Powered: yes" || { echo '{"text":""}'; exit 0; }
+connected="$(bluetoothctl devices Connected | wc -l | tr -d ' ')"
+text=""
+[ "$connected" -gt 0 ] && text=" $connected"
+printf '{"text":"%s","tooltip":"Bluetooth: on • connected: %s","class":"on"}\n' "$text" "$connected"

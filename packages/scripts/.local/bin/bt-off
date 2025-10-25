@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+bluetoothctl power off || true
+sudo systemctl disable --now bluetooth.service || true
+sudo systemctl mask bluetooth.service
+notify-send "Bluetooth" "Disabled & masked"

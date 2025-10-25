@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+cmd="$*"
+for term in cool-retro-term alacritty foot kitty wezterm gnome-terminal xfce4-terminal konsole xterm; do
+  if command -v "$term" >/dev/null; then
+    case "$term" in
+      cool-retro-term) exec "$term" --class dotfiles-floating -e bash -lc "$cmd" ;;
+      alacritty|foot|kitty) exec "$term" -e bash -lc "$cmd" ;;
+      wezterm) exec "$term" start -- bash -lc "$cmd" ;;
+      gnome-terminal|xfce4-terminal|konsole|xterm) exec "$term" -- bash -lc "$cmd" ;;
+    esac
+  fi
+done
+exec xterm -e bash -lc "$cmd"

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if command -v wlogout >/dev/null; then exec wlogout; fi
+choice="$(printf "Lock\nLogout\nSuspend\nReboot\nShutdown\n" | { command -v wofi >/dev/null && wofi --show dmenu -p Power || rofi -dmenu -p Power; })"
+case "$choice" in
+  Lock)    hyprctl dispatch exec "swaylock -f" 2>/dev/null || true ;;
+  Logout)  hyprctl dispatch exit ;;
+  Suspend) systemctl suspend ;;
+  Reboot)  systemctl reboot ;;
+  Shutdown) systemctl poweroff ;;
+esac

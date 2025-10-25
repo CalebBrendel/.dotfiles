@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ask() {
+  if command -v wofi >/dev/null; then
+    printf "Yes\nNo\n" | wofi --show dmenu -p "Update now?"
+  elif command -v rofi >/dev/null; then
+    printf "Yes\nNo\n" | rofi -dmenu -p "Update now?"
+  else
+    read -rp "Update now? [y/N]: " a; [ "${a:-N}" = y ] || [ "${a:-N}" = Y ] && echo Yes || echo No
+  fi
+}
+
+choice="$(ask || true)"
+[ "$choice" = "Yes" ] || exit 0
+
+echo "[*] Running: sudo dnf update --refresh -y && flatpak update -y"
+sudo dnf update --refresh -y && flatpak update -y
+echo "[✓] Updates complete."
+read -rp "Press Enter to close..."

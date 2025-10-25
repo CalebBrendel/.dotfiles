@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+open() { hyprctl dispatch exec "$*"; }
+
+if command -v gnome-calendar >/dev/null 2>&1; then
+  open "gnome-calendar"
+elif command -v gnome-control-center >/dev/null 2>&1; then
+  open "gnome-control-center datetime"
+elif command -v cal >/dev/null 2>&1; then
+  open "kitty sh -lc 'cal -3; read -n1 -r -p \"Press any key to close...\"'"
+else
+  notify-send "Waybar" "No calendar app found. Install gnome-calendar?"
+fi

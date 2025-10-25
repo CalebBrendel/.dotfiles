@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ask_menu() {
+  if command -v wofi >/dev/null; then
+    printf "Enable\nDisable\n" | wofi --show dmenu -p "Bluetooth"
+  elif command -v rofi >/dev/null; then
+    printf "Enable\nDisable\n" | rofi -dmenu -p "Bluetooth"
+  else
+    echo "Enable or Disable Bluetooth? [E/d]: "
+    read -r ans
+    case "${ans:-E}" in
+      E|e|"") echo "Enable" ;;
+      D|d)    echo "Disable" ;;
+      *)      echo "Disable" ;;
+    esac
+  fi
+}
+
+choice="$(ask_menu || true)"
+[ -z "${choice:-}" ] && exit 0
+
+enable_bt() {
+  sudo systemctl unmask bluetooth.service
+  sudo systemctl enable --now bluetooth.service
+  bluetoothctl power on || true
+  notify-send "Bluetooth" "Enabled & powered on"
+  # open manager after enabling
+  if command -v blueman-manager >/dev/null; then
+    blueman-manager &
+  fi
+}
+
+disable_bt() {
+  bluetoothctl power off || true
+  sudo systemctl disable --now bluetooth.service || true
+  sudo systemctl mask bluetooth.service
+  notify-send "Bluetooth" "Disabled & masked"
+}
+
+case "$choice" in
+  Enable)  enable_bt ;;
+  Disable) disable_bt ;;
+esac
