@@ -14,7 +14,7 @@ ask() {
 choice="$(ask || true)"
 [ "$choice" = "Yes" ] || exit 0
 
-echo "[*] Running: sudo dnf update --refresh -y && flatpak update -y"
+echo "[*] Enter your password now to update."
 sudo dnf update --refresh -y && flatpak update -y
 echo "[✓] Updates complete."
 read -rp "Press Enter to close..."
