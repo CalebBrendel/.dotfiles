@@ -1,0 +1,10 @@
+# KDE Plasma Group of Packages - adding more packages later
+kde-*
+kf6-*
+plasma-*
+akonadi-*
+kaccounts-*
+kate*
+konsole*
+kio-extras*
+sddm*
